@@ -8,40 +8,52 @@
     <style>
         body {
             font-family: 'Cairo', sans-serif;
-            background-color: #1e1e1e;
+            background-color: #000;
             color: #fff;
             margin: 0;
             padding: 0;
             line-height: 1.7;
+            overflow-x: hidden;
         }
         .container {
-            max-width: 750px;
-            margin: 60px auto;
-            padding: 30px;
-            background-color: #2a2a2a;
+            max-width: 700px;
+            margin: 40px auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #1e1e1e, #000);
             border-radius: 15px;
-            box-shadow: 0 0 40px rgba(255, 215, 0, 0.5);
+            box-shadow: 0 0 25px rgba(255, 215, 0, 0.6);
+            opacity: 0;
+            animation: fadeIn 1s ease-in-out forwards;
+        }
+        @keyframes fadeIn {
+            to { opacity: 1; }
         }
         h1 {
             font-family: 'Cairo', sans-serif;
-            color: #f1c40f;
+            color: #f7c600;
             text-align: center;
             margin-bottom: 30px;
-            font-size: 2.6em;
+            font-size: 2.4em;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: slideIn 1.5s ease forwards;
+        }
+        @keyframes slideIn {
+            to { opacity: 1; transform: translateY(0); }
         }
         label {
             display: block;
-            margin-bottom: 10px;
-            color: #f1c40f;
+            margin-bottom: 8px;
+            color: #f7c600;
             font-weight: bold;
         }
         input, select, textarea {
             width: 100%;
-            padding: 16px;
-            margin-bottom: 20px;
+            padding: 14px;
+            margin-bottom: 15px;
             border: none;
             border-radius: 8px;
-            background-color: #333;
+            background-color: #2e2e2e;
             color: #fff;
             font-size: 16px;
             transition: all 0.3s ease;
@@ -49,11 +61,11 @@
         input:focus, select:focus, textarea:focus {
             background-color: #444;
             outline: none;
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.7);
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
         }
         button {
-            background-color: #f1c40f;
-            color: #1e1e1e;
+            background-color: #f7c600;
+            color: #1a1a1a;
             padding: 16px;
             border: none;
             border-radius: 8px;
@@ -61,22 +73,72 @@
             font-size: 18px;
             transition: background-color 0.3s ease;
             width: 100%;
+            animation: pulse 2s infinite;
         }
         button:hover {
-            background-color: #d4ac0d;
+            background-color: #ffd700;
+        }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 10px rgba(255, 215, 0, 0.5); }
+            50% { box-shadow: 0 0 20px rgba(255, 215, 0, 1); }
+            100% { box-shadow: 0 0 10px rgba(255, 215, 0, 0.5); }
+        }
+        .note {
+            font-size: 14px;
+            color: #bbb;
+            margin-top: -10px;
+            margin-bottom: 20px;
+            text-align: center;
         }
         .footer {
             text-align: center;
-            margin-top: 30px;
+            margin-top: 20px;
             font-size: 14px;
             color: #777;
             padding-bottom: 20px;
+        }
+        .payment-info {
+            background-color: #2e2e2e;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            text-align: right;
+            line-height: 1.5;
+        }
+        .payment-info p {
+            margin: 5px 0;
+            color: #ddd;
+        }
+        .logo {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 25px;
+        }
+        .logo img {
+            width: 130px;
+            height: auto;
+            border-radius: 10px;
+            border: 2px solid #f7c600;
+            transition: transform 0.5s ease;
+        }
+        .logo img:hover {
+            transform: rotate(360deg);
         }
     </style>
 </head>
 <body>
     <div class="container">
+        <div class="logo">
+            <img src="logo.png" alt="شعار عبدالله الدرويش">
+        </div>
         <h1>خدمة التعليق الصوتي من عبدالله الدرويش</h1>
+        <div class="payment-info">
+            <p>لتحويل الأموال عبر بنك الكريمي، يرجى استخدام المعلومات التالية:</p>
+            <p>رقم الحساب (بالريال اليمني): <strong>3101549126</strong></p>
+            <p>رقم الحساب (بالريال السعودي): <strong>3101432695</strong></p>
+            <p>اسم المستلم: <strong>عبدالله علي محمد أحمد الدرويش</strong></p>
+            <p>يرجى التأكد من مطابقة الاسم ورقم الهاتف مع معلومات التحويل الخاصة بك.</p>
+        </div>
         <form id="voiceForm">
             <label for="name">الاسم الكامل:</label>
             <input type="text" id="name" name="name" required placeholder="أدخل اسمك الرباعي">
@@ -117,11 +179,11 @@
             <button type="submit">إرسال الطلب</button>
         </form>
         <div class="footer">
-            <p>بعد إرسال المعلومات إلى واتساب، يرجى انتظار الرد.</p>
+            <p>!بعد إرسال المعلومات إلى واتساب يرجى الإنتظار حتى الرد وإعلامكم بالسعر الإجمالي... وشكراً لزيارتك</p>
         </div>
     </div>
 
-    <script>
+        <script>
         document.getElementById('voiceForm').addEventListener('submit', function(event) {
             event.preventDefault();
             
@@ -133,11 +195,14 @@
             const voiceStyle = document.getElementById('voice-style').value;
             const voiceTone = document.getElementById('voice-tone').value;
 
-            // إنشاء رابط واتساب
-            const whatsappLink = `https://wa.me/966${phone}?text=الاسم%20الكامل:%20${name}%0Aالنص%20المطلوب:%20${text}%0Aطريقة%20الحساب:%20${duration}%0Aنوع%20الصوت:%20${voiceStyle}%0افئة%20الصوت:%20${voiceTone}`;
-            
-            // فتح رابط واتساب
-            window.open(whatsappLink, '_blank');
+            // تكوين الرسالة
+            const message = `الاسم: ${name}\nالهاتف: ${phone}\nالنص المطلوب: ${text}\nطريقة الحساب: ${duration}\nنوع الصوت: ${voiceStyle}\nفئة الصوت: ${voiceTone}`;
+
+            // تكوين رابط الواتساب
+            const whatsappUrl = `https://wa.me/967734799935?text=${encodeURIComponent(message)}`;
+
+            // الانتقال إلى الواتساب
+            window.open(whatsappUrl, '_blank');
         });
     </script>
 </body>
