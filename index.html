@@ -8,56 +8,70 @@
     <style>
         body {
             font-family: 'Cairo', sans-serif;
-            background-color: #1a1a1a;
+            background-color: #141414;
+
             color: #fff;
             margin: 0;
             padding: 0;
-            line-height: 1.6;
+            line-height: 1.7;
+
         }
         .container {
             max-width: 700px;
             margin: 40px auto;
             padding: 20px;
-            background: linear-gradient(135deg, #2c2c2c, #1a1a1a);
-            border-radius: 12px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            background: linear-gradient(135deg, #2a2a2a, #141414);
+            border-radius: 15px;
+            box-shadow: 0 0 25px rgba(0, 0, 0, 0.6);
+
         }
         h1 {
             font-family: 'Cairo', sans-serif;
-            color: #f1c40f;
+            color: #f39c12;
             text-align: center;
-            margin-bottom: 20px;
-            font-size: 2.2em;
+            margin-bottom: 30px;
+            font-size: 2.4em;
+
         }
         label {
             display: block;
             margin-bottom: 8px;
-            color: #f1c40f;
+            color: #f39c12;
+
             font-weight: bold;
         }
         input, select, textarea {
             width: 100%;
-            padding: 12px;
+            padding: 14px;
             margin-bottom: 15px;
             border: none;
-            border-radius: 6px;
+            border-radius: 8px;
+
             background-color: #333;
             color: #fff;
             font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        input:focus, select:focus, textarea:focus {
+            background-color: #444;
+            outline: none;
+            box-shadow: 0 0 10px rgba(243, 156, 18, 0.7);
         }
         button {
-            background-color: #f1c40f;
+            background-color: #f39c12;
             color: #1a1a1a;
-            padding: 15px;
+            padding: 16px;
             border: none;
-            border-radius: 6px;
+            border-radius: 8px;
+
             cursor: pointer;
             font-size: 18px;
             transition: background-color 0.3s ease;
             width: 100%;
         }
         button:hover {
-            background-color: #d4ac0d;
+            background-color: #e67e22;
+
         }
         .note {
             font-size: 14px;
@@ -75,9 +89,10 @@
         }
         .payment-info {
             background-color: #333;
-            padding: 10px;
+            padding: 15px;
             border-radius: 8px;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+
             text-align: right;
             line-height: 1.5;
         }
@@ -88,20 +103,22 @@
         .logo {
             display: flex;
             justify-content: center;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
         .logo img {
-            width: 120px;
+            width: 130px;
             height: auto;
-            border-radius: 8px;
+            border-radius: 10px;
+            border: 2px solid #f39c12;
+
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="logo">
-    <img src="logo.png" alt="شعار عبدالله الدرويش">
-</div>
+            <img src="logo.png" alt="شعار عبدالله الدرويش">
+        </div>
         <h1>خدمة التعليق الصوتي من عبدالله الدرويش</h1>
         <div class="payment-info">
             <p>لتحويل الأموال، يرجى استخدام المعلومات التالية:</p>
@@ -110,48 +127,28 @@
             <p>اسم المستلم: <strong>عبدالله علي محمد أحمد الدرويش</strong></p>
             <p>يرجى التأكد من مطابقة الاسم ورقم الهاتف مع معلومات التحويل الخاصة بك.</p>
         </div>
-        <form action="https://wa.me/967734799935" method="get" target="_blank">
-            <label for="name">الاسم الكامل:</label>
-            <input type="text" id="name" name="name" required placeholder="أدخل اسمك الرباعي">
-            
-            <label for="phone">رقم الهاتف (يجب أن يحتوي على واتساب):</label>
-            <input type="text" id="phone" name="phone" required placeholder="أدخل رقم الهاتف مع رمز الدولة">
-            
-            <label for="text">النص المطلوب:</label>
-            <textarea id="text" name="text" rows="4" required placeholder="أدخل النص الذي تريد تحويله إلى صوت"></textarea>
-            
-            <label for="duration">طريقة الحساب:</label>
-            <select id="duration" name="duration" required>
-                <option value="" disabled selected>اختر طريقة الحساب</option>
-                <option value="time">لكل 10 ثوان - 2700 ريال يمني / 20 ريال سعودي</option>
-                <option value="words">لكل 10 كلمات - 1700 ريال يمني / 12 ريال سعودي</option>
-            </select>
+        <form id="voiceForm">
+            <script>
+        document.getElementById('voiceForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+           
+            // جمع القيم من النموذج
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const text = document.getElementById('text').value;
+            const duration = document.getElementById('duration').value;
+            const voiceStyle = document.getElementById('voice-style').value;
+            const voiceTone = document.getElementById('voice-tone').value;
 
-            <label for="voice-style">نوع الصوت:</label>
-            <select id="voice-style" name="voice-style" required>
-                <option value="" disabled selected>اختر نوع الصوت</option>
-                <option value="formal">عربي فصيح</option>
-                <option value="yemeni">يمني</option>
-                <option value="saudi">سعودي</option>
-                <option value="egyptian">مصري</option>
-                <option value="english">إنجليزي</option>
-            </select>
+            // تكوين الرسالة
+            const message = `الاسم: ${name}\nالهاتف: ${phone}\nالنص المطلوب: ${text}\nطريقة الحساب: ${duration}\nنوع الصوت: ${voiceStyle}\nفئة الصوت: ${voiceTone}`;
 
-            <label for="voice-tone">فئة الصوت:</label>
-            <select id="voice-tone" name="voice-tone" required>
-                <option value="" disabled selected>اختر فئة الصوت</option>
-                <option value="soft">ناعم</option>
-                <option value="serious">جاد</option>
-                <option value="happy">مرح</option>
-                <option value="scary">مرعب</option>
-                <option value="broadcast">إذاعي</option>
-            </select>
+            // تكوين رابط الواتساب
+            const whatsappUrl = `https://wa.me/967734799935?text=${encodeURIComponent(message)}`;
 
-            <button type="submit">إرسال الطلب</button>
-        </form>
-        <div class="footer">
-            <p>شكراً لزيارتك!</p>
-        </div>
-    </div>
+            // الانتقال إلى الواتساب
+            window.open(whatsappUrl, '_blank');
+        });
+    </script>
 </body>
-</html>
+</html>            
