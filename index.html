@@ -8,7 +8,7 @@
     <style>
         body {
             font-family: 'Cairo', sans-serif;
-            background-color: #1e1e1e; /* أسود فاتح قليلاً */
+            background-color: #101010;
             color: #fff;
             margin: 0;
             padding: 0;
@@ -19,35 +19,55 @@
             max-width: 750px;
             margin: 60px auto;
             padding: 30px;
-            background: linear-gradient(135deg, #282828, #1e1e1e); /* تدرج بين درجات الأسود */
+            background: linear-gradient(135deg, #2a2a2a, #1b1b1b);
             border-radius: 15px;
-            box-shadow: 0 0 40px rgba(255, 215, 0, 0.5); /* تأثير إشعاع أصفر ذهبي */
+            box-shadow: 0 0 50px rgba(255, 215, 0, 0.5);
             position: relative;
             overflow: hidden;
+            backdrop-filter: blur(10px);
         }
+
+        /* التموجات المبتكرة */
         .container:before {
             content: '';
             position: absolute;
-            top: -100px;
-            left: 0;
-            width: 100%;
-            height: 150%;
-            background: radial-gradient(circle, rgba(255, 215, 0, 0.2), rgba(30, 30, 30, 0.8));
-            animation: wave-animation 6s infinite alternate ease-in-out;
-            z-index: 0;
+            top: -200px;
+            left: -200px;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(255, 215, 0, 0.5), transparent 70%);
+            border-radius: 50%;
+            filter: blur(100px);
+            animation: pulse 6s infinite alternate;
+        }
+        .container:after {
+            content: '';
+            position: absolute;
+            bottom: -200px;
+            right: -200px;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(255, 215, 0, 0.5), transparent 70%);
+            border-radius: 50%;
+            filter: blur(100px);
+            animation: pulse 8s infinite alternate;
         }
 
-        @keyframes wave-animation {
-            0% { transform: translateX(-50%); }
-            100% { transform: translateX(50%); }
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            100% {
+                transform: scale(1.2);
+            }
         }
 
         h1 {
             font-family: 'Cairo', sans-serif;
-            color: #f1c40f; /* أصفر ذهبي */
+            color: #f1c40f;
             text-align: center;
             margin-bottom: 30px;
-            font-size: 2.6em;
+            font-size: 3em;
             z-index: 1;
             position: relative;
         }
@@ -75,7 +95,7 @@
         input:focus, select:focus, textarea:focus {
             background-color: #444;
             outline: none;
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.7); /* توهج أصفر ذهبي */
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.7);
         }
         button {
             background-color: #f1c40f;
@@ -136,11 +156,11 @@
             width: 140px;
             height: auto;
             border-radius: 10px;
-            border: 3px solid #f1c40f; /* إطار أصفر ذهبي */
+            border: 3px solid #f1c40f;
             transition: transform 0.5s ease;
         }
         .logo img:hover {
-            transform: scale(1.1); /* تكبير طفيف عند التمرير */
+            transform: scale(1.1);
         }
     </style>
 </head>
@@ -197,17 +217,4 @@
             <button type="submit">إرسال الطلب</button>
         </form>
         <div class="footer">
-            <p>!بعد إرسال المعلومات إلى واتساب يرجى الإنتظار حتى الرد وإعلامكم بالسعر الإجمالي... وشكراً لزيارتك</p>
-        </div>
-    </div>
-
-    <script>
-        document.getElementById('voiceForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            
-            // جمع القيم من النموذج
-            const name = document.getElementById('name').value;
-            const phone = document.getElementById('phone').value;
-            const text = document.getElementById('text').value;
-            const duration = document.getElementById('duration').value;
-            const voiceStyle = document.getElementBy
+            <p>!بعد إرسال المعلومات إلى واتساب يرجى الإنتظار حتى الرد وإعلامكم بالسعر الإجمالي... وشكراً لزيارتك</
